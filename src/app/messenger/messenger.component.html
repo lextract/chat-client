@@ -1,0 +1,44 @@
+<div class="h100">
+  <div class="areaMain">
+    <div class="areaConversations">
+      <div class="list-group">
+        <a *ngFor="let conv of conversations"
+          (click)="showConversation(conv.id)"
+          class="list-group-item">
+          {{conv.name}}
+        </a>
+      </div>
+      <div class="newPanel">
+        <button (click)="newConversation()" class="btn btn-success">Nueva</button>
+      </div>
+    </div>
+    <div class="areaChat">
+      <div *ngIf="currentConversation" class="panel panel-default h100">
+        <div class="panel-heading">Usuario1, Usuario2</div>
+        <div class="panel-body messagesArea">
+          algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo XXX<br>
+        </div>
+      </div>
+      <div *ngIf="!currentConversation">
+        <h2>Conversacion no seleccionada</h2>
+      </div>
+      <div class="areaMessage">
+        <form class="form-inline">
+          <input type="text" class="form-control" id="exampleInputAmount" placeholder="Mensaje">
+          <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">UN Red Social</a>
+      <ul class="nav navbar-nav navbar-right">
+        <form action="LogoutServlet" method="post">
+          <input type="submit" value="Logout">
+        </form>
+      </ul>
+    </div>
+  </nav>
+
+</div>

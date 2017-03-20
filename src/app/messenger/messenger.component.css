@@ -1,0 +1,37 @@
+/*
+    Created on : Mar 5, 2017, 9:11:12 AM
+    Author     : alex
+*/
+.areaMain{
+    height: 100%;
+    padding-top: 70px;
+}
+.areaMain .areaConversations{
+    width: 32%;
+    height: 100%;
+    float: left;
+    padding: 0 29px 23px;
+    overflow-y: auto;
+    position: relative;
+}
+.newPanel{
+  position: absolute;
+  bottom: 14px;
+  right: 29px;
+}
+.areaMain .areaChat{
+    width: 65%;
+    display: inline-block;
+    position: relative;
+    height: 95%;
+}
+.areaMessage{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.messagesArea{
+  height: 80%;
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
