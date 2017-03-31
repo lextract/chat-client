@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  showLogin = true;
   constructor(private router: Router) { }
 
   navToMessenger() {

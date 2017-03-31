@@ -35,3 +35,8 @@
   overflow-y: auto;
   padding-bottom: 40px;
 }
+.areaNewConv{
+    height: 100%;
+    float: left;
+    padding: 0 29px 23px;
+}

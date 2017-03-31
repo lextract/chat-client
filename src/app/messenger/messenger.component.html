@@ -1,42 +1,62 @@
 <div class="h100">
   <div class="areaMain">
     <div class="areaConversations">
-      <div class="list-group">
+      <div *ngIf="!creatingConv" class="list-group">
         <a *ngFor="let conv of conversations"
-          (click)="showConversation(conv.id)"
+          (click)="showConv(conv.id)"
           class="list-group-item">
-          {{conv.name}}
+          {{ conv.title }}
         </a>
       </div>
-      <div class="newPanel">
-        <button (click)="newConversation()" class="btn btn-success">Nueva</button>
+      <div *ngIf="!creatingConv" class="newPanel">
+        <button (click)="newConv()" class="btn btn-success">Nueva</button>
+      </div>
+      <div *ngIf="creatingConv" class="areaNewConv">
+        <div *ngFor="let friend of friends">
+          <label>
+            <input type="checkbox" [(ngModel)]="friend.checked">
+            <span>{{ friend.name }}</span>
+          </label>
+        </div>
+        <div class="newPanel">
+          <button (click)="cancelNewConv()" class="btn btn-danger">Cancelar</button>
+          <button (click)="createConv()" class="btn btn-success">Crear</button>
+        </div>
       </div>
     </div>
     <div class="areaChat">
       <div *ngIf="currentConversation" class="panel panel-default h100">
-        <div class="panel-heading">Usuario1, Usuario2</div>
+        <div class="panel-heading">
+          <span *ngFor="let user of currentConversation.users">{{user.name}},</span>
+        </div>
         <div class="panel-body messagesArea">
-          algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo <br>algo XXX<br>
+          <div *ngFor="let message of messages">
+            <h5>{{ message.user.name }}</h5>
+            <p>{{ message.text }}</p>
+          </div>
         </div>
       </div>
       <div *ngIf="!currentConversation">
         <h2>Conversacion no seleccionada</h2>
       </div>
       <div class="areaMessage">
-        <form class="form-inline">
-          <input type="text" class="form-control" id="exampleInputAmount" placeholder="Mensaje">
-          <button type="submit" class="btn btn-success">Enviar</button>
+        <form class="form-inline" (submit)="sendMessage()">
+          <div class="input-group">
+            <input [value]="newMessage" (input)="newMessage=$event.target.value"
+              type="text" class="form-control" placeholder="Mensaje" >
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-success">Enviar</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">UN Red Social</a>
+      <a class="navbar-brand" href="#">UN Messenger</a>
       <ul class="nav navbar-nav navbar-right">
-        <form action="LogoutServlet" method="post">
-          <input type="submit" value="Logout">
-        </form>
+        <button type="button" class="btn btn-default">Cerrar sesión</button>
       </ul>
     </div>
   </nav>
