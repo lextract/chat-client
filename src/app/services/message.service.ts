@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { jwtHeader } from './jwtHelper';
-import { Conversation} from '../models/Conversation';
+import { API_URL } from '../constants';
+import { Message } from '../models';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
+import * as roh from './requestOptionsHelper';
 
-const apiUrl = "api/message";
+const endPoint = API_URL + '/message';
 
 @Injectable()
 export class MessageService {
   constructor(private http: Http) { }
 
-  getByConversation(idConv: number){
-    return new Promise<Conversation[]>((resolve)=> {
-      resolve(convs);
-    });
+  getByConversation(idConv: number) {
+    let url = endPoint + "?idConv=" + idConv;
+    return this.http.get(url, roh.jwtHeader())
+      .map(res => res.json())
+      .catch(handleError);
   }
 
+  create(message: Message) {
+    message.idUser = parseInt(localStorage.getItem("userId"));
+    return this.http.post(endPoint, message, roh.jwtAndJson())
+      .map(res => res.json())
+      .catch(handleError);
+  }
 }
 
-let convs: Conversation[] = [
-      { id: 101, name: "Conversation 1", users: [{id:123,name:"Al Hassem"}]},
-      { id: 102, name: "Conversation 2", users: [{id:123,name:"Mohamed"}]},
-      { id: 103, name: "Conversation 3", users: [{id:123,name:"Nostradamus"}]}
-    ]
+function handleError(error: Response | any) {
+  return Observable.throw("errMsg Message Service");
+}
 
-    ;

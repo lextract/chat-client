@@ -2,10 +2,8 @@
   <div class="areaMain">
     <div class="areaConversations">
       <div *ngIf="!creatingConv" class="list-group">
-        <a *ngFor="let conv of conversations"
-          (click)="showConv(conv.id)"
-          class="list-group-item">
-          {{ conv.title }}
+        <a *ngFor="let conv of conversations" (click)="showConv(conv.id)" class="list-group-item">
+          <strong>{{ conv.name }}</strong> {{ conv.lastMessageText }}
         </a>
       </div>
       <div *ngIf="!creatingConv" class="newPanel">
@@ -24,15 +22,19 @@
         </div>
       </div>
     </div>
-    <div class="areaChat">
+    <div class="areaChat" *ngIf="!eventsShowed">
       <div *ngIf="currentConversation" class="panel panel-default h100">
         <div class="panel-heading">
-          <span *ngFor="let user of currentConversation.users">{{user.name}},</span>
+          <span>{{currentConversation.name}}</span>
+
+          <ul class="nav navbar-nav navbar-right">
+            <button type="button" class="btn btn-default" (click)="showEvents()">Invitar a Evento</button>
+          </ul>
+
         </div>
         <div class="panel-body messagesArea">
           <div *ngFor="let message of messages">
-            <h5>{{ message.user.name }}</h5>
-            <p>{{ message.text }}</p>
+            <strong>{{ message.userName }}:  </strong>{{ message.text }}
           </div>
         </div>
       </div>
@@ -42,8 +44,7 @@
       <div class="areaMessage">
         <form class="form-inline" (submit)="sendMessage()">
           <div class="input-group">
-            <input [value]="newMessage" (input)="newMessage=$event.target.value"
-              type="text" class="form-control" placeholder="Mensaje" >
+            <input [value]="newMessage" (input)="newMessage=$event.target.value" type="text" class="form-control" placeholder="Mensaje">
             <div class="input-group-btn">
               <button type="submit" class="btn btn-success">Enviar</button>
             </div>
@@ -51,12 +52,16 @@
         </form>
       </div>
     </div>
+    <div class="areaChat" *ngIf="eventsShowed">
+      <app-events (onEventPicked)="eventPicked($event)" (onCancel)="cancelEventsPicker()"></app-events>
+    </div>
   </div>
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">UN Messenger</a>
+      <strong>{{userName}}</strong>
       <ul class="nav navbar-nav navbar-right">
-        <button type="button" class="btn btn-default">Cerrar sesión</button>
+        <button type="button" class="btn btn-default" (click)="logout()">Cerrar sesión</button>
       </ul>
     </div>
   </nav>

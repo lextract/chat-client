@@ -6,21 +6,27 @@ import { API_URL } from '../constants';
 import { User } from '../models';
 import * as roh from './requestOptionsHelper';
 
-const endPoint = API_URL + '/user';
+const endPoint = API_URL + '/event';
 
 @Injectable()
-export class UserService {
+export class EventService {
   constructor(
     private http: Http
   ) { }
-  getFriends() {
-    // TODO: con jwt el server conoce el id del usuario actual, devuelve la lista de amigos
+  getPublic() {
     return this.http.get(endPoint, roh.jwtHeader())
+      .map(res => res.json())
+      .catch(handleError);
+  }
+  invite(idConversation: number, idEvent: number){
+    //let url = endPoint + "?idConv=" + idConversation  + "&idEvent=" + idEvent;
+    let body = { idConversation: idConversation, idEvent: idEvent };
+    return this.http.post(endPoint, body, roh.jwtAndJson())
       .map(res => res.json())
       .catch(handleError);
   }
 }
 
 function handleError(error: Response | any) {
-  return Observable.throw("errMsg User Service");
+  return Observable.throw("errMsg Event Service");
 }

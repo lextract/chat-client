@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Panel heading without title</div>
+  <div class="panel-body">
+    <div class="list-group">
+      <label *ngFor="let event of events" for="{{'evento'+event.idEvent}}"
+          (click)="eventChanged(event.idEvent)" class="list-group-item">
+        <input type="radio" name="eventos" id="{{'evento'+event.idEvent}}"/>
+        {{event.name}}
+      </label>
+
+    </div>
+    <div>
+      <button (click)="cancel()" class="btn btn-danger">Cancelar</button>
+      <button (click)="invite()" class="btn btn-success">Invitar</button>
+    </div>
+  </div>
+</div>

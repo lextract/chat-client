@@ -1,52 +1,54 @@
 <div class="h100">
   <div class="logoPanel">
-    <div class="logoP1">LOGO</div>
-    <!--<button>Nota importante</button>
-    <p>Aclaración nota importante</p>-->
+    <div class="logoP1"></div>
   </div>
   <div class="formsPanel">
     <div *ngIf="showLogin">
-      <form (submit)="navToMessenger()">
+      <form (submit)="loginSubmit()">
         <div class="form-group">
-          <label for="email1">Correo</label>
-          <input type="email" class="form-control" id="email1" placeholder="Email">
+          <label for="emailTxt">Correo</label>
+          <input type="email" class="form-control" id="emailTxt" placeholder="yisus@gmail.com"
+            [(ngModel)]="userEmail" name="email" required>
         </div>
         <div class="form-group">
-          <label for="password1">Contraseña</label>
-          <input type="password" class="form-control" id="password1" placeholder="Password">
+          <label for="passwordTxt">Contraseña</label>
+          <input type="password" class="form-control" id="passwordTxt" placeholder="****"
+            [(ngModel)]="userPass" name="password" required>
         </div>
         <div class="checkbox">
           <label>
             <input type="checkbox"> Recordarme
           </label>
         </div>
-        <button class="btn btn-primary">Ingresar</button>
-        <a class="btn btn-default" (click)="showLogin = false">Registrarse</a>
+        <div>
+          <button class="btn btn-primary">Ingresar</button>
+          <a class="btn btn-default" (click)="showLogin = false">Registrarse</a>
+        </div>
       </form>
     </div>
     <div *ngIf="!showLogin">
-      <form (submit)="navToMessenger()">
+      <form (submit)="signinSubmit()">
         <div class="form-group">
           <label for="nombreTxt">Nombre</label>
-          <input type="text" class="form-control" id="nombreTxt" placeholder="nombre" name="userR">
+          <input type="text" class="form-control" id="nombreTxt" placeholder="Yisus Christ"
+            [(ngModel)]="userName" name="name" required>
         </div>
         <div class="form-group">
-          <label for="correoTxt">Correo</label>
-          <input type="email" class="form-control" id="correoTxt" placeholder="Email" name="emailR">
+          <label for="emailTxt">Correo</label>
+          <input type="email" class="form-control" id="emailTxt" placeholder="yisus@gmail.com"
+            [(ngModel)]="userEmail" name="email" required>
         </div>
         <div class="form-group">
           <label for="passwordTxt">Contraseña</label>
-          <input type="password" class="form-control" id="passwordText" placeholder="Password" name="pwdR">
+          <input type="password" class="form-control" id="passwordTxt" placeholder="****"
+            [(ngModel)]="userPass" name="password" required>
         </div>
-        <div class="form-group">
-          <label for="passwordConfirmTxt">Confirmar Contraseña</label>
-          <input type="password" class="form-control" id="passwordText2" placeholder="Password" name="pwd2R">
-        </div>
-        <div class="text-center">
+        <div>
           <button type="submit" class="btn btn-primary">Registrar</button>
           <a class="btn btn-default" role="button" (click)="showLogin = true">Ingresar</a>
         </div>
       </form>
     </div>
+    <span style="color:red;">{{errorMessage}}</span>
   </div>
 </div>
